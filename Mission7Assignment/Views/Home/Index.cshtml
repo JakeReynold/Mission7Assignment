@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Book Library";
+}
+
+@model BooksViewModel
+
+<h1 class="text-center">Narnes & Boble Bookstore</h1>
+
+<div page-model="@Model.PageInfo" page-action="Index" page-classes-enabled="true"
+    page-class="btn" page-class-normal="btn-outline-dark"
+    page-class-selected="btn-primary" class="btn-group pull-right m-1"></div>
+
+
+@*Loops through books in database and displays the information about each book*@
+@foreach (Book b in Model.Books)
+{
+    <div class="text-center">
+        <hr class="text-decoration-line-through"/>
+        <h3>@b.Title</h3>
+
+        <ul class="list-unstyled">
+            <li>Author: @b.Author</li>
+            <li>Publisher: @b.Publisher</li>
+            <li>Classification: @b.Classification</li>
+            <li>Category: @b.Category</li>
+            <li>Page Count: @b.PageCount</li>
+            <li>Price: $@b.Price</li>
+            <li>ISBN: @b.Isbn</li>
+        </ul>
+    </div>
+}
+
+
+@*Creates a div that will be filled with the links that navigate to the new pages*@
+
+<div class="text-center"><div page-model="@Model.PageInfo" page-action="Index" page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-outline-dark"
+
+     page-class-selected="btn-primary" class="btn-group pull-right m-1"></div></div>
