@@ -19,8 +19,10 @@ namespace Mission7Assignment.Controllers
 
         public IActionResult Index(int pageNum = 1)
         {
+            //Determines how many books are displayed on each page
             int pageSize = 10;
 
+            //Creates a BooksViewModel variable with the IQueryable object and the PageInfo class object
             var x = new BooksViewModel
             {
                 Books = repo.Books
@@ -37,6 +39,7 @@ namespace Mission7Assignment.Controllers
 
             };
 
+            //Passes the BooksViewModel variable to the Index page.
             return View(x);
         }
     }

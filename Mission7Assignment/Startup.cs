@@ -27,13 +27,17 @@ namespace Mission7Assignment
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+            ///Enables our app to follow the MVC Model
             services.AddControllersWithViews();
 
+            //Enables the use of the context file
             services.AddDbContext<BookstoreContext>(options =>
             {
                 options.UseSqlite(Configuration["ConnectionStrings:BookstoreDBConnection"]);
             });
 
+            //Enables the use of the repository method
             services.AddScoped<IBookstoreProjectRepository, EFBookstoreProjectRepository>();
         }
 
@@ -49,6 +53,7 @@ namespace Mission7Assignment
 
             app.UseRouting();
 
+            //Creates the endpoints
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
