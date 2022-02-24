@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Mission7Assignment.Models
 {
+
+    //Creates the context object to pass data from the bookstore object into the Home controller
     public partial class BookstoreContext : DbContext
     {
         public BookstoreContext()

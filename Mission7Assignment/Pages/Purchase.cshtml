@@ -1,0 +1,50 @@
+﻿@*Connectst the razor page to the Razor Purchase Model*@
+@page
+@model Mission7Assignment.Pages.PurchaseModel
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h2>Cart</h2>
+
+
+@*Creates the table for the user*@
+<table class="table table-bordered table-hover">
+
+    @*Creates the table header*@
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+
+    @*loops through the Cart object and prints out a row for each unique item*@
+    <tbody>
+        @foreach (var i in Model.cart.Items)
+        {
+            <tr>
+                <td>@i.Book.Title</td>
+                <td>@i.Quantity</td>
+                <td>@i.Book.Price.ToString("c")</td>
+                <td>@((i.Quantity * i.Book.Price).ToString("c"))</td>
+            </tr>
+        }
+    </tbody>
+
+    @*Adds row containing the total sum of the table*@
+    <tfoot>
+        <tr>
+            <td colspan="3">Total:</td>
+            <td>@Model.cart.CalculateTotal().ToString("c")</td>
+        </tr>
+    </tfoot>
+
+</table>
+
+@*Creates a link for the user to return to where they were in the catalog*@
+<div>
+    <a class="btn btn-dark" href="@Model.ReturnUrl">Continue Shopping</a>
+</div>

@@ -17,7 +17,7 @@ namespace Mission7Assignment.Controllers
             repo = temp;
         }
 
-        public IActionResult Index(int pageNum = 1)
+        public IActionResult Index(string bookCategory, int pageNum = 1)
         {
             //Determines how many books are displayed on each page
             int pageSize = 10;
@@ -25,14 +25,20 @@ namespace Mission7Assignment.Controllers
             //Creates a BooksViewModel variable with the IQueryable object and the PageInfo class object
             var x = new BooksViewModel
             {
+                //Displays each book, makes it possible to display books by category
                 Books = repo.Books
+                .Where(b => b.Category == bookCategory || bookCategory == null)
                 .OrderBy(b => b.Title)
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize),
 
+                //Changes the button structure so that it creates only enough buttons for the category selected
                 PageInfo = new PageInfo
                 {
-                    TotalNumBooks = repo.Books.Count(),
+                    TotalNumBooks = 
+                        (bookCategory == null
+                            ? repo.Books.Count()
+                            : repo.Books.Where(x => x.Category == bookCategory).Count()),
                     BooksPerPage = pageSize,
                     CurrentPage = pageNum
                 }

@@ -4,8 +4,6 @@
 
 @model BooksViewModel
 
-<h1 class="text-center">Narnes & Boble Bookstore</h1>
-
 @*Dynamically creates navigation buttons at the top of the page*@
 <div page-model="@Model.PageInfo" page-action="Index" page-classes-enabled="true"
     page-class="btn" page-class-normal="btn-outline-dark"
@@ -15,20 +13,8 @@
 @*Loops through books in database and displays the information about each book*@
 @foreach (Book b in Model.Books)
 {
-    <div class="text-center">
-        <hr class="text-decoration-line-through"/>
-        <h3>@b.Title</h3>
-
-        <ul class="list-unstyled">
-            <li>Author: @b.Author</li>
-            <li>Publisher: @b.Publisher</li>
-            <li>Classification: @b.Classification</li>
-            <li>Category: @b.Category</li>
-            <li>Page Count: @b.PageCount</li>
-            <li>Price: $@b.Price</li>
-            <li>ISBN: @b.Isbn</li>
-        </ul>
-    </div>
+    //Connects to the partial view BookSummary, passes "b" as the model for the partial view to display
+    <partial name="BookSummary" model="b"/>
 }
 
 

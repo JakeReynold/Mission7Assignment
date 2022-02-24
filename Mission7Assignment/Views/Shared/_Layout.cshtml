@@ -10,8 +10,29 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <div>
-        @RenderBody()
+
+    @*Creates header to be put on all pages*@
+    <div class="bg-dark text-white p-2">
+        <span class="navbar-brand m-lg-2">Narnes & Boble</span>
     </div>
+
+    @*Passess a title to each page*@
+    <h1 class="text-center">Narnes & Boble Bookstore</h1>
+
+    @*Divides page into columns and rows to allow for the catalog of books and the list of categories to appear next to each other*@
+    <div class="row m-1 p-1">
+
+        <div id="categories" class="col-3">
+            <vc:categories></vc:categories>
+        </div>
+
+        <div class="col-9">
+            <div>
+                @RenderBody()
+            </div>
+        </div>
+
+    </div>
+
 </body>
 </html>

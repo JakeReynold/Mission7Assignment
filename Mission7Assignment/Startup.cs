@@ -39,6 +39,14 @@ namespace Mission7Assignment
 
             //Enables the use of the repository method
             services.AddScoped<IBookstoreProjectRepository, EFBookstoreProjectRepository>();
+
+            //Enables the use of Razor Pages
+            services.AddRazorPages();
+
+
+            //Enables webapp to keep track of session data
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,14 +57,38 @@ namespace Mission7Assignment
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStaticFiles();
 
+            //Allows the app to use the wwwroot files, endpoint routing, and session data
+            app.UseStaticFiles();
+            app.UseSession();
             app.UseRouting();
 
             //Creates the endpoints
             app.UseEndpoints(endpoints =>
             {
+                //Creates an endpoint for when the app receives both page info and category info
+                endpoints.MapControllerRoute("categorypage",
+                    "{bookCategory}/Page{pageNum}",
+                    new { Controller = "Home", action = "Index" });
+
+                //Creates endpoint for when just page info is received
+                endpoints.MapControllerRoute(
+                    name: "Paging",
+                    pattern: "Page{pageNum}",
+                    defaults: new { Controller = "Home", action = "Index", pageNum = 1 });
+
+
+                //Creates endpoint for when just category data is received
+                endpoints.MapControllerRoute("category",
+                    "{bookCategory}",
+                    new { Controller = "Home", action = "Index", pageNum = 1 });
+
+                //creates a default endpoint for when no additional parameters are passed
                 endpoints.MapDefaultControllerRoute();
+
+
+                //creates enpoint to be used when razor pages are requested. 
+                endpoints.MapRazorPages();
             });
         }
     }

@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    @*Creates head to pass bootstrap info and webpage title*@
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    @*Creates navbar that matches other layout page*@
+    <div class="bg-dark text-white p-2">
+        <span class="navbar-brand m-lg-2">Narnes & Boble</span>
+    </div>
+
+    @*Renders body from other Razor pages*@
+    <div class="m-1 p-1">
+        @RenderBody()
+    </div>
+
+</body>
+</html>
