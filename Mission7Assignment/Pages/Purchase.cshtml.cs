@@ -14,9 +14,10 @@ namespace Mission7Assignment.Pages
     {
         private IBookstoreProjectRepository repo { get; set; }
 
-        public PurchaseModel (IBookstoreProjectRepository temp)
+        public PurchaseModel (IBookstoreProjectRepository temp, Cart c)
         {
             repo = temp;
+            cart = c;
         }
 
         //Creates the cart object
@@ -29,7 +30,7 @@ namespace Mission7Assignment.Pages
         public void OnGet(string returnUrl)
         {
             ReturnUrl = returnUrl ?? "/";
-            cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
+            //cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
         }
 
         //Creates the post method, which receives a bookId and the return url string
@@ -37,13 +38,20 @@ namespace Mission7Assignment.Pages
         {
             Book b = repo.Books.FirstOrDefault(x => x.BookId == bookId);
 
-            cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
+            //cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
             cart.AddItem(b, 1);
 
-            HttpContext.Session.SetJson("cart", cart);
+            //HttpContext.Session.SetJson("cart", cart);
 
             return RedirectToPage(new { ReturnUrl = returnUrl });
 
+        }
+
+        public IActionResult OnPostRemove (int bookId, string returnUrl)
+        {
+            cart.RemoveItem(cart.Items.First(x => x.Book.BookId == bookId).Book);
+
+            return RedirectToPage(new { ReturnUrl = returnUrl });
         }
     }
 }

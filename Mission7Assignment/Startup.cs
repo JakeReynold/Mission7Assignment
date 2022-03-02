@@ -39,14 +39,20 @@ namespace Mission7Assignment
 
             //Enables the use of the repository method
             services.AddScoped<IBookstoreProjectRepository, EFBookstoreProjectRepository>();
+            services.AddScoped<IPurchaseRepository, EFPurchaseRepository>();
 
             //Enables the use of Razor Pages
             services.AddRazorPages();
 
-
             //Enables webapp to keep track of session data
             services.AddDistributedMemoryCache();
             services.AddSession();
+
+            //Causes the program to create a cart when the session begins
+            services.AddScoped<Cart>(x => SessionCart.GetCart(x));
+
+            //Provides access to the HttpContext if there is one
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
