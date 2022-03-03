@@ -34,11 +34,13 @@ namespace Mission7Assignment.Models
             }
         }
 
+        //This method removes items from the cart
         public virtual void RemoveItem (Book book)
         {
             Items.RemoveAll(x => x.Book.BookId == book.BookId);
         }
-
+        
+        //Clears all items from the cart
         public virtual void ClearCart()
         {
             Items.Clear();

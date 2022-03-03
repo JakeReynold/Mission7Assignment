@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mission7Assignment.Models
 {
+    //This is the model that contains the user information when the user submits a purchase
     public class Purchase
     {
         [Key]

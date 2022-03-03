@@ -10,14 +10,16 @@ namespace Mission7Assignment.Models
     {
         private BookstoreContext context;
         
+        //Constructor for the class
         public EFPurchaseRepository (BookstoreContext temp)
         {
             context = temp;
         }
+
         //creates a queryable object of purchases that includes the line items and the books
         public IQueryable<Purchase> Purchases => context.Purchases.Include(x => x.Lines).ThenInclude(x => x.Book);
 
-
+        //Saves the purchase information to the repository
         public void SavePurchase(Purchase purchase)
         {
             context.AttachRange(purchase.Lines.Select(x => x.Book));
