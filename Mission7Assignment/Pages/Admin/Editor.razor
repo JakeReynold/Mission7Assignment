@@ -79,10 +79,13 @@
     public string ThemeColor => Id == 0 ? "primary" : "warning";
     public string TitleText => Id == 0 ? "Add" : "Edit";
 
+    //creates a book object
     public Book b { get; set; } = new Book();
 
+    //connects the page to the repository
     public IBookstoreProjectRepository repo => Service;
 
+    //determines whether or not the form should be populated with data
     protected override void OnParametersSet()
     {
         if (Id != 0) //Existing book
