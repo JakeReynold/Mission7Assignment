@@ -53,6 +53,9 @@ namespace Mission7Assignment
 
             //Provides access to the HttpContext if there is one
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            //Allows the app to use Blazor pages
+            services.AddServerSideBlazor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,6 +98,10 @@ namespace Mission7Assignment
 
                 //creates enpoint to be used when razor pages are requested. 
                 endpoints.MapRazorPages();
+
+                //conigure endpoints for Blazor pages
+                endpoints.MapBlazorHub();
+                endpoints.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
             });
         }
     }

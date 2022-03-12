@@ -1,0 +1,26 @@
+﻿@page "/admin"
+
+@model Mission7Assignment.Pages.Admin.IndexModel
+
+@{
+}
+
+<!DOCTYPE html>
+
+<html>
+@*Adds the heading to the web page*@
+<head>
+    <title>Bookstore Admin</title>
+    <link href="~/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <base href="/" />
+</head>
+
+<body>
+
+    @*Drops in the routed component into the index page*@
+    <component type="typeof(Mission7Assignment.Pages.Admin.Routed)" render-mode="Server" />
+    <script src="/_framework/blazor.server.js"></script>
+
+</body>
+
+</html>

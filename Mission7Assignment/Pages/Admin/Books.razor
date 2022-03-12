@@ -1,0 +1,85 @@
+﻿@page "/admin/books"
+@page "/admin"
+@inherits OwningComponentBase<IBookstoreProjectRepository>
+
+<NavLink class="btn btn-primary" href="/admin/books/add">Add Book</NavLink>
+
+<table class="table table-sm table-hover table-bordered">
+
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @*Checks to see if there are books to list*@
+        @if (BookData?.Count() > 0)
+        {
+            @foreach (Book b in BookData)
+            {
+                <tr>
+                    <td>@b.Title</td>
+                    <td>@b.Author</td>
+                    <td>@b.Category</td>
+
+                    @*Creates buttons to get details, update, and delete data*@
+                    <td>
+                        <NavLink class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title ="See more details about the book" href="@GetDetailsUrl(b.BookId)">Details</NavLink>
+                    </td>
+
+                    <td>
+                        <NavLink class="btn btn-warning btn-sm"  data-toggle="tooltip" data-placement="top" title ="Edit book information" href="@GetEditUrl(b.BookId)">Edit</NavLink>
+                    </td>
+
+                    <td>
+                        <button class="btn btn-danger btn-sm"  data-toggle="tooltip" data-placement="top" title ="Delete book from catalog" @onclick="@(x => RemoveBook(b))">Delete</button>
+                    </td>
+                </tr>       
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No Books</td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+
+@code {
+
+    //Connect to the repo
+    public IBookstoreProjectRepository repo => Service;
+
+    //Create an inumerable object of books
+    public IEnumerable<Book> BookData { get; set; }
+
+    //Updates the data
+    protected async override Task OnInitializedAsync()
+    {
+        await UpdateData();
+    }
+
+    //populates the BookData object with a list of books
+    public async Task UpdateData()
+    {
+        BookData = await repo.Books.ToListAsync();
+    }
+
+    //Create urls and method to get details, edit, and delete books
+    public string GetDetailsUrl(long id) => $"/admin/books/details/{id}";
+    public string GetEditUrl(long id) => $"/admin/books/edit/{id}";
+
+    public async Task RemoveBook (Book b)
+    {
+        repo.DeleteBook(b);
+        await UpdateData();
+    }
+
+}

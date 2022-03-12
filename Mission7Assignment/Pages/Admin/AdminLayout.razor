@@ -1,0 +1,33 @@
+﻿@*Sets the layout for the other Blazor pagse*@
+
+@inherits LayoutComponentBase
+
+<div class="bg-info text-white p-2">
+    <span class="navbar-brand m-lg-2">Narnes & Boble Administration</span>
+</div>
+
+<div class="container-fluid">
+
+    <div class="row p-2">
+
+        @*Creates the navigation buttons used to switch between pages*@
+        <div class="col-3">
+
+            <div class="d-grid gap-2">
+                <NavLink class="btn btn-outline-primary" href="/admin/books"
+                         ActiveClass="btn-primary text-white" Match="NavLinkMatch.Prefix">Books</NavLink>
+
+                <NavLink class="btn btn-outline-primary" href="/admin/purchases"
+                         ActiveClass="btn-primary text-white">Purchases</NavLink>
+            </div>
+
+        </div>
+
+        @*Creates a space for the body of the webpage*@
+        <div class="col">
+            @Body
+        </div>
+
+    </div>
+
+</div>

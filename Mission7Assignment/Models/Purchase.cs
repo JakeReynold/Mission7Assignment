@@ -34,6 +34,9 @@ namespace Mission7Assignment.Models
         [Required(ErrorMessage = "Country name is required")]
         public string Country { get; set; }
 
+        [BindNever]
+        public bool PurchaseReceived { get; set; }
+
 
     }
 }
