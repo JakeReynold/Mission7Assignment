@@ -3,7 +3,23 @@
 @inherits LayoutComponentBase
 
 <div class="bg-info text-white p-2">
-    <span class="navbar-brand m-lg-2">Narnes & Boble Administration</span>
+
+    <div class="contatiner-fluid">
+
+        <div class="row">
+
+            <div class="col">
+                <span class="navbar-brand m-lg-2">Narnes & Boble Administration</span>
+            </div>
+
+            @*Creates button for the user to logout of the session*@
+            <div class="col-2 text-end">
+                <a class="btn btn-small btn-outline-primary bg-white" href="/account/logout">Log Out</a>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 
 <div class="container-fluid">
